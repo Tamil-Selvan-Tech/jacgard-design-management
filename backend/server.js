@@ -12,11 +12,7 @@ const app = express();
 connectDB();
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://jacgard-design-management-1.onrender.com"
-  ],
-  credentials: true
+  origin: "*"
 }));
 
 app.use(express.json());

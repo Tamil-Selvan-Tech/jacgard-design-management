@@ -8,8 +8,8 @@ export default function DesignCard({ design, onDelete, onUpdate }) {
     design.stock > 10
       ? "bg-green-500"
       : design.stock > 0
-      ? "bg-yellow-500"
-      : "bg-red-500";
+        ? "bg-yellow-500"
+        : "bg-red-500";
 
   const handleDelete = async () => {
     await onDelete(design._id);
@@ -35,7 +35,7 @@ export default function DesignCard({ design, onDelete, onUpdate }) {
       <div className="relative group">
 
         <img
-          src={`http://localhost:5000/uploads/${design.image}`}
+          src={`https://jacgard-design-management.onrender.com/uploads/${design.image}`}
           alt="design"
           className="h-48 sm:h-52 md:h-56 w-full object-cover 
           group-hover:scale-110 transition duration-500"

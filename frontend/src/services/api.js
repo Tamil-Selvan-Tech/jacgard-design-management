@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/designs", // ✅ FIXED (hardcoded for now)
+  baseURL: "https://jacgard-design-management.onrender.com/api/designs",
 });
 
 export const addDesign = (data) =>

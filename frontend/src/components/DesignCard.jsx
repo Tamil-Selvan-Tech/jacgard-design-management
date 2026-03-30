@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaTrash, FaEdit, FaBoxes } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { getImageUrl } from "../services/api";
 
 export default function DesignCard({ design, onDelete, onUpdate }) {
 
@@ -35,7 +36,7 @@ export default function DesignCard({ design, onDelete, onUpdate }) {
       <div className="relative group">
 
         <img
-          src={`https://jacgard-design-management.onrender.com/uploads/${design.image}`}
+          src={getImageUrl(design.image)}
           alt="design"
           className="h-48 sm:h-52 md:h-56 w-full object-cover 
           group-hover:scale-110 transition duration-500"

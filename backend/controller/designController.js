@@ -2,14 +2,33 @@ import Design from "../models/design.js";
 import fs from "fs";
 import path from "path";
 
+import {
+  deleteImageFromCloudinary,
+  isCloudinaryEnabled,
+  uploadImageToCloudinary,
+} from "../config/cloudinary.js";
 import { uploadsPath } from "../config/uploads.js";
 
 export const addDesign = async (req, res) => {
   try {
+    let image = null;
+    let imagePublicId = null;
+
+    if (req.file) {
+      if (isCloudinaryEnabled) {
+        const uploadedImage = await uploadImageToCloudinary(req.file.buffer);
+        image = uploadedImage.secure_url;
+        imagePublicId = uploadedImage.public_id;
+      } else {
+        image = req.file.filename;
+      }
+    }
+
     const design = new Design({
       designNumber: req.body.designNumber,
       stock: req.body.stock || 0,
-      image: req.file ? req.file.filename : null,
+      image,
+      imagePublicId,
     });
 
     const savedDesign = await design.save();
@@ -41,10 +60,14 @@ export const deleteDesign = async (req, res) => {
 
     // delete image file if exists
     if (design.image) {
-      const imagePath = path.join(uploadsPath, design.image);
+      if (design.imagePublicId) {
+        await deleteImageFromCloudinary(design.imagePublicId);
+      } else {
+        const imagePath = path.join(uploadsPath, design.image);
 
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath);
+        }
       }
     }
 

@@ -22,4 +22,8 @@ export const updateStock = (id, stock) =>
   API.put(`/${id}`, { stock });
 
 export const getImageUrl = (imageName) =>
-  imageName ? `${API_BASE_URL}/uploads/${imageName}` : "";
+  !imageName
+    ? ""
+    : /^https?:\/\//i.test(imageName)
+      ? imageName
+      : `${API_BASE_URL}/uploads/${imageName}`;

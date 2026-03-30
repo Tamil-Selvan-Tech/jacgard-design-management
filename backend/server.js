@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import connectDB from "./config/db.js";
+import { uploadsPath } from "./config/uploads.js";
 import designRoutes from "./routes/designRoute.js";
 
 dotenv.config();
@@ -13,7 +14,6 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const frontendDistPath = path.resolve(__dirname, "../frontend/dist");
-const uploadsPath = path.resolve(__dirname, "uploads");
 
 connectDB();
 

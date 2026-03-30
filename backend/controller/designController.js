@@ -2,6 +2,8 @@ import Design from "../models/design.js";
 import fs from "fs";
 import path from "path";
 
+import { uploadsPath } from "../config/uploads.js";
+
 export const addDesign = async (req, res) => {
   try {
     const design = new Design({
@@ -39,7 +41,7 @@ export const deleteDesign = async (req, res) => {
 
     // delete image file if exists
     if (design.image) {
-      const imagePath = path.join("uploads", design.image);
+      const imagePath = path.join(uploadsPath, design.image);
 
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);
